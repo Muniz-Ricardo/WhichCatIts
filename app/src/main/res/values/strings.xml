@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WhichCatIts</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="base_url">https://api.thecatapi.com/v1/images/</string>
+    <string name="def_cat_name">Abysis</string>
 </resources>
