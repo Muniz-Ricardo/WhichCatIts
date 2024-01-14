@@ -15,6 +15,13 @@ class CatListAdapter(
 ) :
     RecyclerView.Adapter<CatListAdapter.ViewHolder>() {
 
+    fun update(catList: MutableList<Cat>) {
+        with(catMutableList) {
+            addAll(catList)
+            notifyItemRangeChanged(0, catList.size)
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatListAdapter.ViewHolder {
         val itemView = ItemCatListBinding.inflate(
             LayoutInflater.from(context), parent, false
@@ -22,9 +29,8 @@ class CatListAdapter(
         return ViewHolder(itemView, context)
     }
 
-    override fun onBindViewHolder(holder: CatListAdapter.ViewHolder, position: Int) {
-        val catItem = catMutableList[position]
-        holder.bind(catItem)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(catMutableList[position])
     }
 
     override fun getItemCount() = catMutableList.size

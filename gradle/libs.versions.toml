@@ -16,6 +16,7 @@ koin = "3.3.3"
 lifecycle = "2.7.0"
 retrofit = "2.9.0"
 okhttp = "4.5.0"
+bumbtec-glide = "4.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,6 +39,8 @@ lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 okhttp-client = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "bumbtec-glide" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
