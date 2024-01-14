@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/catListFragment">
+
+    <fragment
+        android:id="@+id/catListFragment"
+        android:name="com.ricardomuniz.whichcatits.presentation.ui.CatListFragment"
+        android:label="CatListFragment"
+        tools:layout="@layout/fragment_cat_list">
+        <action
+            android:id="@+id/action_catListFragment_to_catDetailFragment"
+            app:destination="@id/catDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/catDetailFragment"
+        android:name="com.ricardomuniz.whichcatits.presentation.ui.CatDetailFragment"
+        android:label="CatDetailFragment"
+        tools:layout="@layout/fragment_cat_detail">
+        <argument
+            android:name="catId"
+            app:argType="string" />
+    </fragment>
+</navigation>
