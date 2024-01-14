@@ -63,4 +63,6 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp.client)
 
+    implementation(libs.glide)
+
 }

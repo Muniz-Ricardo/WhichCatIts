@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ricardomuniz.whichcatits.data.model.Cat
+import androidx.recyclerview.widget.RecyclerView
 import com.ricardomuniz.whichcatits.databinding.FragmentCatListBinding
 import com.ricardomuniz.whichcatits.domain.model.State.Error
 import com.ricardomuniz.whichcatits.domain.model.State.Loading
@@ -17,13 +17,22 @@ import com.ricardomuniz.whichcatits.domain.model.State.Success
 import com.ricardomuniz.whichcatits.presentation.adapter.CatListAdapter
 import com.ricardomuniz.whichcatits.presentation.viewmodel.CatListViewModel
 import com.ricardomuniz.whichcatits.util.OnItemClickListener
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CatListFragment : Fragment(), OnItemClickListener {
 
-    private val catListViewModel: CatListViewModel by viewModel()
+    companion object {
+        const val PAGE_SIZE_LIMIT = 10
+    }
+
+    private val catListViewModel: CatListViewModel by sharedViewModel()
 
     private lateinit var adapter: CatListAdapter
+
+    private var isLoading = false
+    private var isInitialLoad = true
+    private var currentPage = 1
+    private var lastVisibleItemPosition = 0
 
     private var _binding: FragmentCatListBinding? = null
 
@@ -31,7 +40,7 @@ class CatListFragment : Fragment(), OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initData()
+//        initData()
     }
 
     override fun onCreateView(
@@ -42,16 +51,24 @@ class CatListFragment : Fragment(), OnItemClickListener {
             lifecycleOwner = viewLifecycleOwner
         }
 
+        setupRecyclerView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupRecyclerView()
         observerData()
+
+        if (isInitialLoad) {
+            initData()
+            isInitialLoad = false
+        }
     }
 
     private fun initData() {
-        catListViewModel.getCatList(0, 0)
+        catListViewModel.getCatList(PAGE_SIZE_LIMIT, 0)
     }
 
     private fun observerData() {
@@ -63,7 +80,6 @@ class CatListFragment : Fragment(), OnItemClickListener {
 
                 is Success -> {
                     showLoading(isLoading = false)
-                    binding.recyclerCatList.visibility = VISIBLE
                 }
 
                 is Error -> {
@@ -72,25 +88,70 @@ class CatListFragment : Fragment(), OnItemClickListener {
             }
         }
 
+        catListViewModel.loadingStateEndless.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is Loading -> {
+                    showIndicator(isLoading = true)
+                }
+
+                is Success -> {
+                    isLoading = false
+                    showIndicator(isLoading = false)
+
+                    if (lastVisibleItemPosition != RecyclerView.NO_POSITION) {
+                        binding.recyclerCatList.scrollToPosition(lastVisibleItemPosition)
+                        lastVisibleItemPosition = RecyclerView.NO_POSITION
+                    }
+                }
+
+                is Error -> {
+                    showIndicator(isLoading = true)
+                    isLoading = false
+                }
+            }
+        }
+
         catListViewModel.catList.observe(viewLifecycleOwner) { catList ->
-            setAdapter(catList)
+            adapter.update(catList)
         }
     }
 
-    private fun setAdapter(catList: ArrayList<Cat>) {
-        val manager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL, false
-        )
-        adapter = CatListAdapter(requireContext(), catList.toMutableList(), this)
+    private fun setupRecyclerView() {
+        val manager = LinearLayoutManager(requireContext())
+        val initialCatList = catListViewModel.catList.value.orEmpty().toMutableList()
+        adapter = CatListAdapter(requireContext(), initialCatList, this)
         binding.recyclerCatList.layoutManager = manager
         binding.recyclerCatList.adapter = adapter
-        adapter.notifyItemRangeChanged(0, catList.size)
+
+        binding.recyclerCatList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+                val isAtEndOfList = lastVisibleItemPosition >= totalItemCount - 1
+
+                if (dy > 0 && isAtEndOfList && !isLoading) {
+                    isLoading = true
+                    val nextPage = currentPage + 1
+                    currentPage = nextPage
+
+                    catListViewModel.getMoreCatList(PAGE_SIZE_LIMIT, nextPage)
+                }
+            }
+        })
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility =
             if (isLoading) VISIBLE else GONE
+    }
+
+    private fun showIndicator(isLoading: Boolean) {
+        binding.progressBarEndless.visibility =
+            if (isLoading) VISIBLE else GONE
+
     }
 
     override fun onClick(catId: String) {

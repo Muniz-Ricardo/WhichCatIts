@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/dimen_160dp">
+
+        <ImageView
+            android:id="@+id/ivCat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/def_desc_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/tvNameCat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            tools:text="@string/def_cat_name"/>
-
+            tools:text="@string/def_cat_name" />
     </RelativeLayout>
 </layout>

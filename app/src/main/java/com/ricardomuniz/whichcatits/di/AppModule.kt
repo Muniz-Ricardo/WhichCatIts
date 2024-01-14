@@ -5,6 +5,7 @@ import com.ricardomuniz.whichcatits.data.repository.CatRepository
 import com.ricardomuniz.whichcatits.data.repository.CatRepositoryImpl
 import com.ricardomuniz.whichcatits.domain.usecase.GetCatDetailUseCase
 import com.ricardomuniz.whichcatits.domain.usecase.GetCatListUseCase
+import com.ricardomuniz.whichcatits.domain.usecase.GetCatMoreListUseCase
 import com.ricardomuniz.whichcatits.presentation.viewmodel.CatDetailViewModel
 import com.ricardomuniz.whichcatits.presentation.viewmodel.CatListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,9 +21,11 @@ val modules = module {
 
     single<GetCatListUseCase> { GetCatListUseCase(get()) }
 
+    single<GetCatMoreListUseCase> { GetCatMoreListUseCase(get()) }
+
     single<GetCatDetailUseCase> { GetCatDetailUseCase(get()) }
 
-    viewModel { CatListViewModel(catListUseCase = get()) }
+    viewModel { CatListViewModel(catListUseCase = get(), catMoreListUseCase = get()) }
 
     viewModel { CatDetailViewModel(catDetailUseCase = get()) }
 
