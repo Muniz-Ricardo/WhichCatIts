@@ -11,6 +11,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -64,9 +65,17 @@ class CatDetailFragment : Fragment() {
     private fun initData() {
         catDetailViewModel.getCatById(args.catId)
 
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.btnShareImage.setOnClickListener {
             if (IMAGE_BITMAP != null)
                 catDetailViewModel.shareCatImage(IMAGE_BITMAP!!)
+        }
+
+        binding.errorView.btnReload.setOnClickListener {
+            reloadScreen()
         }
     }
 
@@ -95,6 +104,11 @@ class CatDetailFragment : Fragment() {
     private fun showError(isError: Boolean) {
         binding.errorView.root.visibility =
             if (isError) VISIBLE else GONE
+    }
+
+    private fun reloadScreen() {
+        binding.errorView.root.visibility = GONE
+        catDetailViewModel.getCatById(args.catId)
     }
 
     private fun loadDetailImage(

@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:paddingTop="@dimen/dimen_10dp"
             android:paddingBottom="@dimen/dimen_28dp"
             android:visibility="visible" />
 
