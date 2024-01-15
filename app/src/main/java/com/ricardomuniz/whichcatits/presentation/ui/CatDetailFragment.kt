@@ -3,7 +3,6 @@ package com.ricardomuniz.whichcatits.presentation.ui
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -82,9 +81,7 @@ class CatDetailFragment : Fragment() {
     private fun observerData() {
         catDetailViewModel.loadingState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is State.Loading -> {
-                    Log.d("catDetail", "state loading...")
-                }
+                is State.Loading -> {}
 
                 is State.Success -> {
                     showError(isError = false)
