@@ -6,8 +6,11 @@ import com.ricardomuniz.whichcatits.data.repository.CatRepositoryImpl
 import com.ricardomuniz.whichcatits.domain.usecase.GetCatDetailUseCase
 import com.ricardomuniz.whichcatits.domain.usecase.GetCatListUseCase
 import com.ricardomuniz.whichcatits.domain.usecase.GetCatMoreListUseCase
+import com.ricardomuniz.whichcatits.domain.usecase.ShareImageUseCase
 import com.ricardomuniz.whichcatits.presentation.viewmodel.CatDetailViewModel
 import com.ricardomuniz.whichcatits.presentation.viewmodel.CatListViewModel
+import com.ricardomuniz.whichcatits.util.GetStateConnection
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -25,9 +28,13 @@ val modules = module {
 
     single<GetCatDetailUseCase> { GetCatDetailUseCase(get()) }
 
-    viewModel { CatListViewModel(catListUseCase = get(), catMoreListUseCase = get()) }
+    single { ShareImageUseCase(get(), get()) }
 
-    viewModel { CatDetailViewModel(catDetailUseCase = get()) }
+    single { GetStateConnection(androidContext()) }
+
+    viewModel { CatListViewModel(catListUseCase = get(), catMoreListUseCase = get(), get()) }
+
+    viewModel { CatDetailViewModel(catDetailUseCase = get(), shareImageUseCase = get(), get()) }
 
 }
 

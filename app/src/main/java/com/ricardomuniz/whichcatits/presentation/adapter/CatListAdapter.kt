@@ -42,7 +42,6 @@ class CatListAdapter(
     ) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(cat: Cat) {
-            itemBinding.tvNameCat.text = cat.id
 
             Glide.with(context)
                 .asBitmap()
@@ -51,7 +50,11 @@ class CatListAdapter(
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(itemBinding.ivCat)
 
-            itemBinding.root.setOnClickListener { onItemClickListener.onClick(cat.id) }
+            itemBinding.root.setOnClickListener {
+                onItemClickListener.onClick(
+                    cat.id!!
+                )
+            }
         }
     }
 }

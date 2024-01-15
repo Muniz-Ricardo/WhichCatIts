@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_cat_list">
         <action
             android:id="@+id/action_catListFragment_to_catDetailFragment"
-            app:destination="@id/catDetailFragment" />
+            app:destination="@id/catDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/catDetailFragment"

@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_160dp">
+        android:layout_height="@dimen/dimen_180dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/dimen_12dp"
+        android:paddingTop="@dimen/dimen_4dp"
+        android:paddingHorizontal="@dimen/dimen_10dp">
 
-        <ImageView
-            android:id="@+id/ivCat"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/def_desc_image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
+            android:elevation="@dimen/dimen_8dp"
+            app:cardCornerRadius="@dimen/dimen_10dp"
+            app:cardElevation="@dimen/dimen_8dp"
+            android:padding="0dp">
 
-        <TextView
-            android:id="@+id/tvNameCat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            tools:text="@string/def_cat_name" />
+            <ImageView
+                android:id="@+id/ivCat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/design_default_color_primary"
+                android:contentDescription="@string/def_desc_image"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </layout>

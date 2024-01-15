@@ -2,20 +2,33 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.ui.CatDetailFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <ImageView
+            android:id="@+id/ivCatDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:contentDescription="@string/def_desc_image"
+            android:src="@null" />
 
+        <ImageButton
+            android:id="@+id/btnShareImage"
+            android:layout_width="@dimen/dimen_60dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="@dimen/dimen_40dp"
+            android:background="@drawable/shape_round_share"
+            android:clickable="true"
+            android:contentDescription="@string/def_desc_btn"
+            android:focusable="true"
+            android:src="@drawable/baseline_share_24" />
+
+        <include
+            android:id="@+id/errorView"
+            layout="@layout/layout_error"
+            android:visibility="gone" />
     </FrameLayout>
 </layout>
