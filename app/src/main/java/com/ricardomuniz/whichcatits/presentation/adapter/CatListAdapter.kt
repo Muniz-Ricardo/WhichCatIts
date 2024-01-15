@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ricardomuniz.whichcatits.data.model.Cat
 import com.ricardomuniz.whichcatits.databinding.ItemCatListBinding
 import com.ricardomuniz.whichcatits.util.OnItemClickListener
@@ -36,11 +38,19 @@ class CatListAdapter(
     override fun getItemCount() = catMutableList.size
 
     inner class ViewHolder(
-        private val itemBinding: ItemCatListBinding, val ctx: Context
+        private val itemBinding: ItemCatListBinding, private val ctx: Context
     ) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(cat: Cat) {
             itemBinding.tvNameCat.text = cat.id
+
+            Glide.with(context)
+                .asBitmap()
+                .load(cat.url)
+                .placeholder(null)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(itemBinding.ivCat)
+
             itemBinding.root.setOnClickListener { onItemClickListener.onClick(cat.id) }
         }
     }
