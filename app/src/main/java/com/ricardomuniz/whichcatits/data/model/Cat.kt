@@ -6,8 +6,13 @@ data class Cat(
     val width: Int,
     val height: Int,
 ) {
-    data class CatDetail(
+    data class Detail(
+        var breeds: ArrayList<Breeds>?
+    )
+
+    data class Breeds(
         var id: String,
+        var name: String?,
         var temperament: String?,
         var origin: String?,
         var lifeSpan: String?,

@@ -5,7 +5,7 @@ import com.ricardomuniz.whichcatits.data.repository.CatRepository
 import retrofit2.Response
 
 class GetCatDetailUseCase(private val catRepository: CatRepository) {
-    suspend operator fun invoke(id: String) : Response<ArrayList<Cat.CatDetail>> {
+    suspend operator fun invoke(id: String) : Response<Cat.Detail> {
         return catRepository.getCatDetail(id)
     }
 }

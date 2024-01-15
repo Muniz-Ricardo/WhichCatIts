@@ -8,7 +8,7 @@ class CatRepositoryImpl(private val api: CatApiService) : CatRepository {
         return api.getCatList(limit, page)
     }
 
-    override suspend fun getCatDetail(id: String): Response<ArrayList<Cat.CatDetail>> {
+    override suspend fun getCatDetail(id: String): Response<ArrayList<Cat.Detail>> {
         return api.getCatDetail(catId = id)
     }
 }

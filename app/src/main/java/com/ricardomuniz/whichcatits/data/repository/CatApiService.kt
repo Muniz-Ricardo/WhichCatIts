@@ -14,5 +14,5 @@ interface CatApiService {
     ): Response<ArrayList<Cat>>
 
     @GET("v1/images/{id}")
-    suspend fun getCatDetail(@Path("id") catId: String): Response<ArrayList<Cat.CatDetail>>
+    suspend fun getCatDetail(@Path("id") catId: String): Response<Cat.Detail>
 }
