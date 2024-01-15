@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class CatListViewModel(
     private val catListUseCase: GetCatListUseCase,
-    private val catMoreListUseCase: GetCatMoreListUseCase,
+    val catMoreListUseCase: GetCatMoreListUseCase,
     private val getStateConnection: GetStateConnection
 ) : ViewModel() {
 
@@ -78,6 +78,6 @@ class CatListViewModel(
         }
     }
 
-    private fun isNetworkAvailable() =
+    fun isNetworkAvailable() =
         getStateConnection.isInternetAvailable()
 }
