@@ -17,6 +17,10 @@ lifecycle = "2.7.0"
 retrofit = "2.9.0"
 okhttp = "4.5.0"
 bumbtec-glide = "4.11.0"
+mockitoKt = "5.2.1"
+mockitoKotlin = "2.2.0"
+archCore = "2.1.0"
+coroutineTest = "1.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +45,11 @@ retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ver
 okhttp-client = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "bumbtec-glide" }
+
+mockito = { group = "com.nhaarman.mockitokotlin2", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+mockito-test = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKt" }
+arch-test = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCore" }
+coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutineTest" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
