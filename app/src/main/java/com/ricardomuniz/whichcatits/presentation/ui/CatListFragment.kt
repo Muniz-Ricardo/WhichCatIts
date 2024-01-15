@@ -64,6 +64,10 @@ class CatListFragment : Fragment(), OnItemClickListener {
 
     private fun initData() {
         catListViewModel.getCatList(PAGE_SIZE_LIMIT, 0)
+
+        binding.errorView.btnReload.setOnClickListener {
+            reloadScreen()
+        }
     }
 
     private fun observerData() {
@@ -155,6 +159,14 @@ class CatListFragment : Fragment(), OnItemClickListener {
 
     private fun showError() {
         binding.errorView.root.visibility = VISIBLE
+    }
+
+    private fun reloadScreen() {
+        showLoading(isLoading = true)
+        showIndicator(isLoading = false)
+        binding.errorView.root.visibility = GONE
+
+        catListViewModel.getCatList(PAGE_SIZE_LIMIT, 0)
     }
 
     override fun onClick(catId: String) {

@@ -7,6 +7,18 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.CatDetailFragment">
 
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/dimen_60dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_gravity="top|start"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:background="@null"
+            android:clickable="true"
+            android:contentDescription="@string/def_desc_btn"
+            android:focusable="true"
+            android:src="@drawable/baseline_arrow_back_26" />
+
         <ImageView
             android:id="@+id/ivCatDetail"
             android:layout_width="match_parent"
