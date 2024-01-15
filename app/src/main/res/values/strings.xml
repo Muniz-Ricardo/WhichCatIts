@@ -5,4 +5,7 @@
     <string name="base_url">https://api.thecatapi.com/v1/images/</string>
     <string name="def_cat_name">Abysis</string>
     <string name="def_desc_image">default image</string>
+    <string name="def_desc_btn">default image button</string>
+    <string name="def_error">Obtivemos um problema ao carregar as informações!</string>
+    <string name="text_share_image">Compartilhar imagem</string>
 </resources>

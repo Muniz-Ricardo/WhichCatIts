@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.ricardomuniz.whichcatits.databinding.FragmentCatListBinding
 import com.ricardomuniz.whichcatits.domain.model.State.Error
 import com.ricardomuniz.whichcatits.domain.model.State.Loading
@@ -35,13 +36,7 @@ class CatListFragment : Fragment(), OnItemClickListener {
     private var lastVisibleItemPosition = 0
 
     private var _binding: FragmentCatListBinding? = null
-
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        initData()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,7 +78,8 @@ class CatListFragment : Fragment(), OnItemClickListener {
                 }
 
                 is Error -> {
-                    showLoading(isLoading = true)
+                    showLoading(isLoading = false)
+                    showError()
                 }
             }
         }
@@ -105,8 +101,12 @@ class CatListFragment : Fragment(), OnItemClickListener {
                 }
 
                 is Error -> {
-                    showIndicator(isLoading = true)
+                    showIndicator(isLoading = false)
                     isLoading = false
+
+                    Snackbar.make(
+                        requireView(), state.errorMessage, Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -151,7 +151,10 @@ class CatListFragment : Fragment(), OnItemClickListener {
     private fun showIndicator(isLoading: Boolean) {
         binding.progressBarEndless.visibility =
             if (isLoading) VISIBLE else GONE
+    }
 
+    private fun showError() {
+        binding.errorView.root.visibility = VISIBLE
     }
 
     override fun onClick(catId: String) {
